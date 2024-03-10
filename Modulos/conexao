@@ -1489,10 +1489,12 @@ exit 0' >$RCLOCAL
 		}
 		[[ $(screen -list | grep -wc 'proxy') != '0' ]] && var_sks1="\033[1;32m◉" || var_sks1="\033[1;31m○"
 		[[ $(screen -list | grep -wc 'ws') != '0' ]] && var_sks2="\033[1;32m◉" || var_sks2="\033[1;31m○"
+		[[ $(screen -list | grep -wc 'novoWS') != '0' ]] && var_sks3="\033[1;32m◉" || var_sks3="\033[1;31m○"
 		[[ $(screen -list | grep -wc 'openpy') != '0' ]] && sksop="\033[1;32m◉" || sksop="\033[1;31m○"
 		echo ""
 		echo -e "\033[1;31m[\033[1;36m1\033[1;31m] \033[1;37m• \033[1;33mSOCKS SSH $var_sks1 \033[0m"
 		echo -e "\033[1;31m[\033[1;36m2\033[1;31m] \033[1;37m• \033[1;33mWEBSOCKET $var_sks2 \033[0m"
+		echo -e "\033[1;31m[\033[1;36m2\033[1;31m] \033[1;37m• \033[1;33mWEBSOCKET SECURITY $var_sks3 \033[0m"
 		echo -e "\033[1;31m[\033[1;36m3\033[1;31m] \033[1;37m• \033[1;33mSOCKS OPENVPN $sksop \033[0m"
 		echo -e "\033[1;31m[\033[1;36m4\033[1;31m] \033[1;37m• \033[1;33mABRIR PORTA\033[0m"
 		echo -e "\033[1;31m[\033[1;36m5\033[1;31m] \033[1;37m• \033[1;33mALTERAR STATUS SOCKS SSH\033[0m"
@@ -1611,7 +1613,68 @@ exit 0' >$RCLOCAL
 				sleep 3
 				fun_socks
 			fi
-		elif [[ "$resposta" = '3' ]]; then
+			elif [[ "$resposta" = '3' ]]; then
+		clear
+		if ps x | grep -w WebSocket | grep -v grep 1>/dev/null 2>/dev/null; then
+		figlet 'TMY-SSH-PRO' | lolcat
+		echo -e "\E[41;1;37m       🚀   WEBSOCKET SECURITY   🚀           \E[0m"
+				echo ""
+				fun_wsswsocksoff() { 
+					pkill WebSocket
+					for pidproxy in $(screen -ls | grep ".ws" | awk {'print $1'}); do
+						screen -r -S "$WebSocket" -X quit
+					done
+					[[ $(grep -wc "WebSocket" /etc/autostart) != '0' ]] && {
+						sed -i '/WebSocket/d' /etc/autostart
+					}
+					sleep 1
+					screen -wipe >/dev/null
+				}
+				echo -e "\033[1;32mDESATIVANDO O WEBSOCKET SECURITY\033[1;33m"
+				echo ""
+				fun_bar 'fun_wsswsocksoff'
+				echo ""
+				echo -e "\033[1;32mWEBSOCKET SECURITY DESATIVADO COM SUCESSO!\033[1;33m"
+				
+				fun_socks
+			else
+			figlet 'TMY-SSH-PRO' | lolcat
+		echo -e "\E[44;1;37m       🚀   WEBSOCKET SECURITY   🚀           \E[0m"
+				echo ""
+				rm -rf /etc/mamalista
+				read -p "$(echo -e "★ \033[1;32mQUAL PORTA MEU MANO? \033[1;37m")" -e -i 80 cuzin
+				echo "$cuzin" > /etc/mamalista
+				echo ""
+				read -p "$(echo -e "★ \033[1;32mBELEZA, QUAL MENSAGEM QUER? \033[1;37m")" -e -i WebSecurity cuzin2
+				rm -rf /etc/mamalista2
+				echo "$cuzin2" > /etc/mamalista2
+				[[ -z "cuzin" ]] && {
+					echo ""
+					echo -e "\033[1;31mPorta invalida!"
+					
+				fun_socks
+				}
+				verif_ptrs $porta
+				fun_iniwssocks() {
+					sleep 1
+					screen -dmS novoWS /etc/SSHPlus/WebSocket -proxy_port 0.0.0.0:$(cat /etc/mamalista) -msg="$(cat /etc/mamalista2) - <span style="color:#bb1cf6">T</span><span style="color:#a438f1">M</span><span style="color:#8c54ed">Y</span><span style="color:#7570e8">-</span><span style="color:#5d8ce3">S</span><span style="color:#46a8df">S</span><span style="color:#2ec4da">H</span><span style="color:#17e0d5">-</span><span style="color:#00fdd1">P</span><span style="color:#46a8df">R</span><span style="color:#2ec4da">O</span>"
+					[[ $(grep -wc "WebSocket" /etc/autostart) = '0' ]] && {
+						echo -e "screen -dmS novoWS /etc/SSHPlus/WebSocket -proxy_port 0.0.0.0:$(cat /etc/mamalista) -msg='$(cat /etc/mamalista2) - <span style="color:#bb1cf6">T</span><span style="color:#a438f1">M</span><span style="color:#8c54ed">Y</span><span style="color:#7570e8">-</span><span style="color:#5d8ce3">S</span><span style="color:#46a8df">S</span><span style="color:#2ec4da">H</span><span style="color:#17e0d5">-</span><span style="color:#00fdd1">P</span><span style="color:#46a8df">R</span><span style="color:#2ec4da">O</span>'" >>/etc/autostart
+					} || {
+						sed -i '/WebSocket/d' /etc/autostart
+						echo -e "screen -dmS novoWS /etc/SSHPlus/WebSocket -proxy_port 0.0.0.0:$(cat /etc/mamalista) -msg='$(cat /etc/mamalista2) - <span style="color:#bb1cf6">T</span><span style="color:#a438f1">M</span><span style="color:#8c54ed">Y</span><span style="color:#7570e8">-</span><span style="color:#5d8ce3">S</span><span style="color:#46a8df">S</span><span style="color:#2ec4da">H</span><span style="color:#17e0d5">-</span><span style="color:#00fdd1">P</span><span style="color:#46a8df">R</span><span style="color:#2ec4da">O</span>'" >>/etc/autostart
+					}
+				}
+				echo ""
+				echo -e "\033[1;32mINICIANDO O WEBSOCKET SECURITY\033[1;33m"
+				echo ""
+				fun_bar 'fun_iniwssocks'
+				echo ""
+				echo -e "\033[1;32WEBSOCKET SECURITY ATIVADO COM SUCESSO\033[1;33m"
+				sleep 3
+				fun_socks
+			fi
+		elif [[ "$resposta" = '4' ]]; then
 			if ps x | grep -w open.py | grep -v grep 1>/dev/null 2>/dev/null; then
 				clear
 				echo -e "\E[41;1;37m            SOCKS OPENVPN             \E[0m"
@@ -1671,7 +1734,7 @@ exit 0' >$RCLOCAL
 				sleep 3
 				fun_socks
 			fi
-		elif [[ "$resposta" = '4' ]]; then
+		elif [[ "$resposta" = '5' ]]; then
 			if ps x | grep proxy.py | grep -v grep 1>/dev/null 2>/dev/null; then
 				sockspt=$(netstat -nplt | grep 'python' | awk {'print $4'} | cut -d: -f2 | xargs)
 				clear
@@ -1708,7 +1771,7 @@ exit 0' >$RCLOCAL
 				sleep 2
 				fun_socks
 			fi
-		elif [[ "$resposta" = '5' ]]; then
+		elif [[ "$resposta" = '6' ]]; then
 			if ps x | grep -w proxy.py | grep -v grep 1>/dev/null 2>/dev/null; then
 				clear
 				msgsocks=$(cat /etc/SSHPlus/proxy.py | grep -E "MSG =" | awk -F = '{print $2}' | cut -d "'" -f 2)
@@ -1803,7 +1866,7 @@ exit 0' >$RCLOCAL
 				sleep 2
 				fun_socks
 			fi
-        		elif [[ "$resposta" = '6' ]]; then
+        		elif [[ "$resposta" = '7' ]]; then
 			if ps x | grep -w wsproxy.py | grep -v grep 1>/dev/null 2>/dev/null; then
 				clear
 				msgsocks=$(cat /etc/SSHPlus/wsproxy.py | grep -E "MSG =" | awk -F = '{print $2}' | cut -d "'" -f 2)
@@ -2071,6 +2134,12 @@ echo -e "\033[0;31m║\033[0m"
 
 			[[ "$(netstat -tlpn | grep 'python' | wc -l)" != '0' ]] && {
 				echo -e "\033[01;31m║\033[1;32mSERVICO: \033[1;33mPROXY SOCKS \033[1;32mPORTA: \033[1;37m$(netstat -nplt | grep 'python' | awk {'print $4'} | cut -d: -f2 | xargs)"
+				sts4="\033[1;32m◉ "
+			} || {
+				sts4="\033[1;31m○ "
+			}
+			[[ "$(netstat -tlpn | grep 'WebSocket' | wc -l)" != '0' ]] && {
+				echo -e "\033[01;31m\033[1;32mSERVICO: \033[1;33mWEBSOCKET SECURITY \033[1;32mPORTA: \033[1;37m"$(cat /etc/mamalista)"\033[01;31m                       \033[0m"
 				sts4="\033[1;32m◉ "
 			} || {
 				sts4="\033[1;31m○ "
