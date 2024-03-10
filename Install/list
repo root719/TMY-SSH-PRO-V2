@@ -1,6 +1,5 @@
 #!/bin/bash
 #====================================================
-#	@MEGALODON_SSH
 #====================================================
 _lvk=$(wget -qO- https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/versao)
 IP=$(wget -qO- ipv4.icanhazip.com)
@@ -28,7 +27,7 @@ dpkg-reconfigure --frontend noninteractive tzdata >/dev/null 2>&1
 [[ ! -d /etc/rec ]] && mkdir /etc/rec
 [[ ! -e /etc/bot/lista_ativos ]] && touch /etc/bot/lista_ativos
 [[ ! -e /etc/bot/lista_suspensos ]] && touch /etc/bot/lista_suspensos
-echo -e 'by: @scottssh' >/usr/lib/sshplus && cat /usr/lib/sshplus >$lst2/licence && cat /usr/lib/sshplus > /etc/SSHPlus/.tmp/crazy
+echo -e 'by: @KIRITO_SSH' >/usr/lib/sshplus && cat /usr/lib/sshplus >$lst2/licence && cat /usr/lib/sshplus > /etc/SSHPlus/.tmp/crazy
 netstat -nplt | grep -w 'apache2' | grep -w '80' && sed -i "s/Listen 80/Listen 81/g" /etc/apache2/ports.conf && service apache2 restart
 [[ "$(grep -o '#Port 22' /etc/ssh/sshd_config)" == "#Port 22" ]] && sed -i "s;#Port 22;Port 22;" /etc/ssh/sshd_config && service ssh restart
 grep -v "^PasswordAuthentication" /etc/ssh/sshd_config >/tmp/passlogin && mv /tmp/passlogin /etc/ssh/sshd_config
@@ -87,7 +86,3 @@ service cron restart >/dev/null 2>&1
 service ssh restart >/dev/null 2>&1
 [[ -d /var/www/html/openvpn ]] && service apache2 restart >/dev/null 2>&1
 rm -rf $lst1/list >/dev/null 2>&1
-mkdir /opt/sshplus
-echo > /opt/sshplus/sshplus
-cd /etc/SSHPlus/ && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/WebSocket && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/pub.key && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/priv.pem && chmod 777 WebSocket && cd $HOME
-cd /etc/SSHPlus/ && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/proxydt && chmod 777 proxydt && cd $HOME
