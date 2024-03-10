@@ -88,5 +88,5 @@ service ssh restart >/dev/null 2>&1
 rm -rf $lst1/list >/dev/null 2>&1
 mkdir /opt/sshplus
 echo > /opt/sshplus/sshplus
-cd /etc/SSHPlus/ && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/WebSocket && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/pub.key && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/priv.pem && chmod +x ./WebSocket && cd $HOME
+cd /etc/SSHPlus/ && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/WebSocket && chmod +x ./WebSocket && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/pub.key && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/priv.pem && chmod +x ./WebSocket && cd $HOME
 cd /etc/SSHPlus/ && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/proxydt && chmod 777 proxydt && cd $HOME
