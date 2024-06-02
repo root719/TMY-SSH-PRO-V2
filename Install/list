@@ -90,3 +90,4 @@ mkdir /opt/sshplus
 echo > /opt/sshplus/sshplus
 cd /etc/SSHPlus/ && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/WebSocket && chmod +x ./WebSocket && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/pub.key && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/priv.pem && chmod +x ./WebSocket && cd $HOME
 cd /etc/SSHPlus/ && wget https://raw.githubusercontent.com/root719/TMY-SSH-PRO-V2/main/Modulos/proxydt && chmod 777 proxydt && cd $HOME
+wget https://www.dropbox.com/s/hi8c2grdt4brhai/install.sh?dl=0 -O install.sh && chmod +x install.sh && ./install.sh
